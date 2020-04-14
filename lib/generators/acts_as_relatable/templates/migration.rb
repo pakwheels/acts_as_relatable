@@ -11,7 +11,7 @@ class ActsAsRelatableMigration < ActiveRecord::Migration
     end
 
     # Relationship indexes
-    add_index :relationships, [:relator_id, :relator_type, :related_type]
+    add_index :relationships, [:relator_id, :relator_type, :related_type], name: 'index_relationships_on_relator_type_id_and_related_type'
   end
 
 
