@@ -7,7 +7,7 @@ class ActsAsRelatableMigration < ActiveRecord::Migration
       t.integer  :related_id
       t.string   :related_type
       t.string   :strength
-      t.timestamps
+      t.timestamps null: false
     end
 
     # Relationship indexes
