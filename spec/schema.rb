@@ -18,6 +18,7 @@ ActiveRecord::Schema.define :version => 0 do
     t.string   :relator_type
     t.integer  :related_id
     t.string   :related_type
-    t.timestamps
+    t.string   :strength
+    t.timestamps null: false
   end
 end

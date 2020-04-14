@@ -56,11 +56,11 @@ describe ActsAsRelatable::Relatable do
         before { @products[:product1].relates_to!(@shops[:shop3]) }
 
         it "relates the first side" do
-          @products[:product1].related_to?(@shops[:shop3]).should be_true
+          @products[:product1].related_to?(@shops[:shop3]).should be true
         end
 
         it "relates the other side" do
-          @shops[:shop3].related_to?(@products[:product1]).should be_true
+          @shops[:shop3].related_to?(@products[:product1]).should be true
         end
       end
 
@@ -68,11 +68,11 @@ describe ActsAsRelatable::Relatable do
         before { @products[:product1].relates_to!(@shops[:shop3], :both_sided => false) }
 
         it "relates the first side" do
-          @products[:product1].related_to?(@shops[:shop3]).should be_true
+          @products[:product1].related_to?(@shops[:shop3]).should be true
         end
 
         it "doesn't relate the other side" do
-          @shops[:shop3].related_to?(@products[:product1]).should be_false
+          @shops[:shop3].related_to?(@products[:product1]).should be false
         end
       end
 
@@ -83,11 +83,11 @@ describe ActsAsRelatable::Relatable do
         before { @products[:product1].relates_to!(@shops[:shop1]) }
 
         it "true if self is related to the passed object" do
-          @products[:product1].related_to?(@shops[:shop1]).should be_true
+          @products[:product1].related_to?(@shops[:shop1]).should be true
         end
 
         it "false if self is not related to the passed object" do
-          @products[:product1].related_to?(@shops[:shop2]).should be_false
+          @products[:product1].related_to?(@shops[:shop2]).should be false
         end
       end
     end
@@ -149,11 +149,11 @@ describe ActsAsRelatable::Relatable do
         before { @products[:product1].destroy_relation_with(@products[:product3]) }
 
         it "destroys the relationship containing the specified object" do
-          @products[:product1].related_to?(@products[:product3]).should be_false
+          @products[:product1].related_to?(@products[:product3]).should be false
         end
 
         it "keeps the other relationship" do
-          @products[:product1].related_to?(@shops[:shop1]).should be_true
+          @products[:product1].related_to?(@shops[:shop1]).should be true
         end
       end
     end

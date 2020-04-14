@@ -14,22 +14,24 @@ module ActsAsRelatable
 
         self.relatable_types = relatable_models.to_a.flatten.compact.map(&:to_sym) << self.to_s.underscore.to_sym
 
-        has_many :relationships, :as => :relator, :order => "created_at desc", :class_name => "ActsAsRelatable::Relationship", :dependent => :destroy
+        has_many :relationships, -> { order  "created_at desc" }, :as => :relator, :class_name => "ActsAsRelatable::Relationship", :dependent => :destroy
         has_many :incoming_relationships, :as => :related, :class_name => "ActsAsRelatable::Relationship", :dependent => :destroy
 
         relatable_types.each do |rel|
 
-          has_many "related_#{rel.to_s.pluralize}",
+          has_many "related_#{rel.to_s.pluralize}".to_sym,
+                                    -> { where relationships: {related_type: rel.to_s.classify} },
                                     :through => :relationships,
                                     :source => "related_#{rel.to_s}",
-                                    :class_name => rel.to_s.classify,
-                                    :conditions => { 'relationships.related_type' => rel.to_s.classify }
+                                    :class_name => rel.to_s.classify
 
-          has_many "relator_#{rel.to_s.pluralize}",
+
+          has_many "relator_#{rel.to_s.pluralize}".to_sym,
+                                  -> { where relationships: {relator_type: rel.to_s.classify} },
                                   :through => :incoming_relationships,
                                   :source => "relator_#{rel.to_s}",
-                                  :class_name => rel.to_s.classify,
-                                  :conditions => {'relationships.relator_type' => rel.to_s.classify}
+                                  :class_name => rel.to_s.classify
+
 
           ActsAsRelatable::Relationship.belongs_to "relator_#{rel.to_s}".to_sym, :class_name => rel.to_s.classify, :foreign_key => :relator_id
           ActsAsRelatable::Relationship.belongs_to "related_#{rel.to_s}".to_sym, :class_name => rel.to_s.classify, :foreign_key => :related_id
