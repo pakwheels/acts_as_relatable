@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.files        = Dir["{lib,spec}/**/*", "[A-Z]*", "init.rb"] - ["Gemfile.lock"]
   s.require_path = "lib"
 
-  s.add_development_dependency 'rails', '~> 4.2'
-  s.add_runtime_dependency 'activesupport', '~> 4.2'
+  s.add_development_dependency 'rails', '~> 5.2.8.1'
+  s.add_runtime_dependency 'activesupport', '~> 5.2.8.1'
   s.add_development_dependency 'rspec', '~> 2.5'
 
   s.rubyforge_project = s.name
